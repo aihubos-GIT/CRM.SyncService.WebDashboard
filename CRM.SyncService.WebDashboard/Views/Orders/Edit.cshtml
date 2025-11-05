@@ -1,39 +1,120 @@
 ﻿@model CRM.SyncService.WebDashboard.Models.Order
 @{
-    ViewData["Title"] = "Chỉnh sửa đơn hàng";
+    ViewData["Title"] = "Chỉnh sửa Đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="card shadow-sm border-0 p-4 mx-auto" style="max-width: 600px;">
-    <h5 class="fw-bold text-dark mb-3">
-        <i class="bi bi-pencil-square text-warning me-2"></i>Chỉnh sửa đơn hàng
-    </h5>
+<style>
+  
+</style>
+
+<div class="la-page-header">
+    <h1 class="la-page-title">
+        <i class="bi bi-pencil-square"></i>
+        Chỉnh sửa Đơn hàng
+    </h1>
+    <div class="la-breadcrumb">
+        <a href="/"><i class="bi bi-house-door"></i> Dashboard</a>
+        <i class="bi bi-chevron-right"></i>
+        <a href="/Orders">Đơn hàng</a>
+        <i class="bi bi-chevron-right"></i>
+        <span>Chỉnh sửa</span>
+    </div>
+</div>
+
+<div class="la-form-container">
+    <div class="la-info-badge">
+        <i class="bi bi-info-circle-fill"></i>
+        <span>ID: <strong>@Model.Id</strong> | Mã đơn: <strong>@Model.OrderCode</strong></span>
+    </div>
 
     <form asp-action="Edit" method="post">
         <input type="hidden" asp-for="Id" />
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Mã đơn</label>
-            <input asp-for="OrderCode" class="form-control" readonly />
+        <div class="la-form-section">
+            <h3 class="la-section-title">
+                <i class="bi bi-info-circle me-2" style="color: var(--la-gold);"></i>
+                Thông tin đơn hàng
+            </h3>
+
+            <div class="la-form-group">
+                <label class="la-form-label">Mã đơn hàng</label>
+                <div class="la-input-with-icon">
+                    <i class="bi bi-upc-scan la-input-icon"></i>
+                    <input asp-for="OrderCode" class="la-form-input" readonly />
+                </div>
+                <span class="la-helper-text">
+                    <i class="bi bi-lock-fill me-1"></i>
+                    Mã đơn hàng không thể thay đổi
+                </span>
+            </div>
+
+            <div class="la-form-group">
+                <label class="la-form-label">Khách hàng</label>
+                <div class="la-input-with-icon">
+                    <i class="bi bi-person la-input-icon"></i>
+                    <select asp-for="ContactId" asp-items="ViewBag.Contacts" class="la-form-select">
+                        <option value="">-- Chọn khách hàng --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="la-form-row">
+                <div class="la-form-group">
+                    <label class="la-form-label">Tổng tiền</label>
+                    <div class="la-input-with-icon">
+                        <i class="bi bi-cash-coin la-input-icon"></i>
+                        <input asp-for="TotalAmount" class="la-form-input" type="number" min="0" step="1000" />
+                    </div>
+                    <span class="la-helper-text">Đơn vị: VND</span>
+                </div>
+
+                <div class="la-form-group">
+                    <label class="la-form-label">Trạng thái</label>
+                    <div class="la-input-with-icon">
+                        <i class="bi bi-flag la-input-icon"></i>
+                        <input asp-for="Status" class="la-form-input" placeholder="VD: Pending, Processing..." />
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Khách hàng</label>
-            <select asp-for="ContactId" asp-items="ViewBag.Contacts" class="form-select"></select>
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Tổng tiền</label>
-            <input asp-for="TotalAmount" class="form-control" type="number" />
-        </div>
-
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Trạng thái</label>
-            <input asp-for="Status" class="form-control" />
-        </div>
-
-        <div class="text-end">
-            <a asp-action="Index" class="btn btn-outline-secondary me-2">Hủy</a>
-            <button type="submit" class="btn btn-warning fw-semibold">Cập nhật</button>
+        <div class="la-form-actions">
+            <button type="submit" class="la-btn la-btn-primary">
+                <i class="bi bi-check-circle-fill"></i>
+                Cập nhật
+            </button>
+            <a asp-action="Index" class="la-btn la-btn-secondary">
+                <i class="bi bi-x-circle"></i>
+                Hủy
+            </a>
         </div>
     </form>
 </div>
+
+<script>
+    // Format currency input
+    var amountInput = document.querySelector('input[name="TotalAmount"]');
+    if (amountInput) {
+        amountInput.addEventListener('blur', function(e) {
+            var value = parseFloat(e.target.value);
+            if (!isNaN(value)) {
+                e.target.value = Math.round(value);
+            }
+        });
+    }
+
+    // Prevent form double submission
+    var submitButton = document.querySelector('button[type="submit"]');
+    var form = document.querySelector('form');
+    if (submitButton && form) {
+        form.addEventListener('submit', function() {
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="bi bi-hourglass-split"></i> Đang cập nhật...';
+            setTimeout(function() {
+                submitButton.disabled = false;
+                submitButton.innerHTML = '<i class="bi bi-check-circle-fill"></i> Cập nhật';
+            }, 3000);
+        });
+    }
+</script>

@@ -1,0 +1,305 @@
+﻿/* Page Header */
+.la-page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--la-pale);
+}
+
+.la-page-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--la-navy);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+    .la-page-title i {
+        background: linear-gradient(135deg, var(--la-gold), var(--la-clay));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+/* Action Button */
+.la-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, var(--la-gold), var(--la-clay));
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: var(--la-transition);
+    box-shadow: 0 4px 15px rgba(212, 164, 89, 0.3);
+}
+
+    .la-btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(212, 164, 89, 0.4);
+        color: white;
+    }
+
+/* Table Container */
+.la-table-container {
+    background: white;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+/* Search & Filter Bar */
+.la-table-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.la-search-box {
+    flex: 1;
+    min-width: 250px;
+    max-width: 400px;
+    position: relative;
+}
+
+.la-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem 0.75rem 2.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: var(--la-transition);
+    background: #f8fafc;
+}
+
+    .la-search-input:focus {
+        outline: none;
+        border-color: var(--la-gold);
+        background: white;
+        box-shadow: 0 0 0 3px rgba(212, 164, 89, 0.1);
+    }
+
+.la-search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.la-table-info {
+    color: #64748b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Table Styles */
+.la-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+    .la-table thead {
+        background: linear-gradient(135deg, var(--la-navy), #1a1f45);
+    }
+
+        .la-table thead th {
+            padding: 1rem 1.25rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+        }
+
+            .la-table thead th:first-child {
+                border-radius: 12px 0 0 0;
+            }
+
+            .la-table thead th:last-child {
+                border-radius: 0 12px 0 0;
+            }
+
+    .la-table tbody tr {
+        transition: var(--la-transition);
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+        .la-table tbody tr:hover {
+            background: rgba(212, 164, 89, 0.05);
+        }
+
+        .la-table tbody tr:last-child {
+            border-bottom: none;
+        }
+
+    .la-table tbody td {
+        padding: 1.125rem 1.25rem;
+        font-size: 0.9rem;
+        color: #334155;
+    }
+
+/* Status Badge */
+.la-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.875rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+    .la-status-badge::before {
+        content: '';
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+    }
+
+.la-status-active {
+    background: rgba(16, 185, 129, 0.1);
+    color: #10b981;
+}
+
+    .la-status-active::before {
+        background: #10b981;
+    }
+
+.la-status-inactive {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+    .la-status-inactive::before {
+        background: #ef4444;
+    }
+
+.la-status-pending {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+    .la-status-pending::before {
+        background: #f59e0b;
+    }
+
+/* Source Badge */
+.la-source-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: rgba(59, 130, 246, 0.1);
+    color: #3b82f6;
+}
+
+/* Action Buttons */
+.la-table-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.la-btn-sm {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.5rem 0.875rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: var(--la-transition);
+    cursor: pointer;
+}
+
+.la-btn-edit {
+    background: rgba(245, 158, 11, 0.1);
+    color: #f59e0b;
+}
+
+    .la-btn-edit:hover {
+        background: #f59e0b;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+.la-btn-delete {
+    background: rgba(239, 68, 68, 0.1);
+    color: #ef4444;
+}
+
+    .la-btn-delete:hover {
+        background: #ef4444;
+        color: white;
+        transform: translateY(-1px);
+    }
+
+/* Empty State */
+.la-empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.la-empty-icon {
+    font-size: 4rem;
+    color: var(--la-pale);
+    margin-bottom: 1rem;
+}
+
+.la-empty-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--la-navy);
+    margin-bottom: 0.5rem;
+}
+
+.la-empty-text {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .la-table-container {
+        overflow-x: auto;
+    }
+
+    .la-table {
+        min-width: 800px;
+    }
+}
+
+@media (max-width: 768px) {
+    .la-page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .la-table-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .la-search-box {
+        max-width: 100%;
+    }
+}

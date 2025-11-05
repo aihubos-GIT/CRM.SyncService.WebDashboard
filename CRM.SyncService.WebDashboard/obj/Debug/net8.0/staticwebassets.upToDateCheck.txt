@@ -1,3 +1,14 @@
+wwwroot\css\contact-create.css
+wwwroot\css\contact-edit.css
+wwwroot\css\contact-index.css
+wwwroot\css\contract-index.css
+wwwroot\css\dashboard.css
+wwwroot\css\login.css
+wwwroot\css\lux_layout.css
+wwwroot\css\orders-create.css
+wwwroot\css\orders-edit.css
+wwwroot\css\orders-index.css
+wwwroot\css\register.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\js\site.js

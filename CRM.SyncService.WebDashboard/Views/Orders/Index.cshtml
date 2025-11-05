@@ -1,35 +1,136 @@
 ﻿@model IEnumerable<CRM.SyncService.WebDashboard.Models.Order>
+@{
+    ViewData["Title"] = "Quản lý Đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<div class="container py-4">
-    <h4 class="fw-bold mb-3">Quản lý đơn hàng</h4>
-    <a href="/Orders/Create" class="btn btn-primary mb-3">+ Thêm đơn hàng</a>
+<link href="~/css/orders-index.css" rel="stylesheet" />
 
-    <table class="table table-hover shadow-sm">
-        <thead>
-            <tr>
-                <th>Mã đơn</th>
-                <th>Khách hàng</th>
-                <th>Tổng tiền</th>
-                <th>Trạng thái</th>
-                <th>Ngày tạo</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var o in Model)
-            {
-                <tr>
-                    <td>@o.OrderCode</td>
-                    <td>@o.Contact?.ContactName</td>
-                    <td>@o.TotalAmount.ToString("N0") ₫</td>
-                    <td>@o.Status</td>
-                    <td>@o.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy")</td>
-                    <td>
-                        <a href="/Orders/Edit/@o.Id" class="btn btn-sm btn-warning">Sửa</a>
-                        <a href="/Orders/Delete/@o.Id" class="btn btn-sm btn-danger">Xóa</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+<div class="la-page-header">
+    <h1 class="la-page-title">
+        <i class="bi bi-cart-check-fill"></i>
+        Quản lý Đơn hàng
+    </h1>
+    <a href="/Orders/Create" class="la-btn-add">
+        <i class="bi bi-plus-circle-fill"></i>
+        Thêm Đơn hàng mới
+    </a>
 </div>
+
+<div class="la-table-container">
+    @if (Model != null && Model.Any())
+    {
+        <table class="la-table">
+            <thead>
+                <tr>
+                    <th>Mã đơn</th>
+                    <th>Khách hàng</th>
+                    <th>Tổng tiền</th>
+                    <th>Trạng thái</th>
+                    <th>Ngày tạo</th>
+                    <th style="width: 120px; text-align: center;">Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var o in Model)
+                {
+                    <tr>
+                        <td>
+                            <span class="la-order-code">@o.OrderCode</span>
+                        </td>
+                        <td>
+                            <strong>@(o.Contact?.ContactName ?? "N/A")</strong>
+                        </td>
+                        <td>
+                            <span class="la-amount">@o.TotalAmount.ToString("N0") ₫</span>
+                        </td>
+                        <td>
+                            @if (o.Status == "Completed")
+                            {
+                                <span class="la-badge la-badge-completed">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                    Hoàn thành
+                                </span>
+                            }
+                            else if (o.Status == "Processing")
+                            {
+                                <span class="la-badge la-badge-processing">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                    Đang xử lý
+                                </span>
+                            }
+                            else if (o.Status == "Pending")
+                            {
+                                <span class="la-badge la-badge-pending">
+                                    <i class="bi bi-clock-fill"></i>
+                                    Chờ xử lý
+                                </span>
+                            }
+                            else if (o.Status == "Cancelled")
+                            {
+                                <span class="la-badge la-badge-cancelled">
+                                    <i class="bi bi-x-circle-fill"></i>
+                                    Đã hủy
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="la-badge la-badge-default">@o.Status</span>
+                            }
+                        </td>
+                        <td>@o.CreatedAt.ToLocalTime().ToString("dd/MM/yyyy HH:mm")</td>
+                        <td style="text-align: center;">
+                            <a href="/Orders/Edit/@o.Id" class="la-action-btn la-action-btn-edit me-1" title="Chỉnh sửa">
+                                <i class="bi bi-pencil-fill"></i>
+                            </a>
+                            <a href="/Orders/Delete/@o.Id" class="la-action-btn la-action-btn-delete" title="Xóa" onclick="return confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="la-empty-state">
+            <i class="bi bi-cart-x"></i>
+            <h4>Chưa có đơn hàng nào</h4>
+            <p>Bắt đầu bằng cách thêm đơn hàng mới</p>
+        </div>
+    }
+</div>
+
+<script>
+    // Confirm delete
+    document.querySelectorAll('.la-action-btn-delete').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            if (!confirm('Bạn có chắc chắn muốn xóa đơn hàng này?')) {
+                e.preventDefault();
+            }
+        });
+    });
+
+    // Highlight recently added/edited row
+    window.addEventListener('load', function() {
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get('success')) {
+            var firstRow = document.querySelector('.la-table tbody tr');
+            if (firstRow) {
+                firstRow.style.backgroundColor = 'rgba(212, 164, 89, 0.15)';
+                setTimeout(function() {
+                    firstRow.style.transition = 'background-color 1s ease';
+                    firstRow.style.backgroundColor = '';
+                }, 2000);
+            }
+        }
+    });
+
+    // Auto-refresh status colors based on time (optional enhancement)
+    setInterval(function() {
+        document.querySelectorAll('.la-badge').forEach(function(badge) {
+            badge.style.opacity = '1';
+        });
+    }, 30000); // Refresh every 30 seconds
+</script>

@@ -1,0 +1,271 @@
+﻿   /* Page Header */
+    .la-page-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 2px solid var(--la-pale);
+    }
+
+    .la-page-title {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--la-navy);
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.5rem;
+    }
+
+        .la-page-title i {
+            background: linear-gradient(135deg, var(--la-gold), var(--la-clay));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+    .la-breadcrumb {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.9rem;
+        color: #64748b;
+    }
+
+        .la-breadcrumb a {
+            color: var(--la-gold);
+            text-decoration: none;
+            transition: var(--la-transition);
+        }
+
+            .la-breadcrumb a:hover {
+                color: var(--la-terracotta);
+            }
+
+    /* Form Container */
+    .la-form-container {
+        max-width: 800px;
+        background: white;
+        border-radius: 16px;
+        padding: 2.5rem;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .la-form-section {
+        margin-bottom: 2rem;
+    }
+
+        .la-form-section:last-of-type {
+            margin-bottom: 0;
+        }
+
+    .la-section-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--la-navy);
+        margin-bottom: 1.25rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    /* Validation Summary */
+    .la-validation-summary {
+        background: rgba(239, 68, 68, 0.1);
+        border-left: 3px solid #ef4444;
+        padding: 1rem 1.25rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+    }
+
+        .la-validation-summary ul {
+            margin: 0;
+            padding-left: 1.25rem;
+            color: #ef4444;
+            font-size: 0.9rem;
+        }
+
+    /* Form Groups */
+    .la-form-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .la-form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+    }
+
+    .la-form-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--la-navy);
+        margin-bottom: 0.5rem;
+    }
+
+        .la-form-label .required {
+            color: #ef4444;
+            margin-left: 0.25rem;
+        }
+
+    .la-form-input {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        transition: var(--la-transition);
+        background: #f8fafc;
+    }
+
+        .la-form-input:focus {
+            outline: none;
+            border-color: var(--la-gold);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 164, 89, 0.1);
+        }
+
+        .la-form-input:disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+    .la-form-select {
+        width: 100%;
+        padding: 0.875rem 1rem;
+        font-size: 0.95rem;
+        border: 2px solid #e2e8f0;
+        border-radius: 10px;
+        transition: var(--la-transition);
+        background: #f8fafc;
+        cursor: pointer;
+    }
+
+        .la-form-select:focus {
+            outline: none;
+            border-color: var(--la-gold);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(212, 164, 89, 0.1);
+        }
+
+    /* Checkbox */
+    .la-checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 1rem;
+        background: rgba(212, 164, 89, 0.05);
+        border: 2px solid rgba(212, 164, 89, 0.2);
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        transition: var(--la-transition);
+    }
+
+        .la-checkbox-group:hover {
+            background: rgba(212, 164, 89, 0.08);
+            border-color: var(--la-gold);
+        }
+
+    .la-checkbox {
+        width: 20px;
+        height: 20px;
+        cursor: pointer;
+        accent-color: var(--la-gold);
+    }
+
+    .la-checkbox-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--la-navy);
+        cursor: pointer;
+        margin: 0;
+    }
+
+    .la-checkbox-hint {
+        font-size: 0.85rem;
+        color: #64748b;
+        margin-left: 1.75rem;
+        margin-top: 0.25rem;
+    }
+
+    /* Form Actions */
+    .la-form-actions {
+        display: flex;
+        gap: 1rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .la-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.875rem 1.75rem;
+        border: none;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        text-decoration: none;
+        transition: var(--la-transition);
+        cursor: pointer;
+    }
+
+    .la-btn-primary {
+        background: linear-gradient(135deg, var(--la-gold), var(--la-clay));
+        color: white;
+        box-shadow: 0 4px 15px rgba(212, 164, 89, 0.3);
+    }
+
+        .la-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(212, 164, 89, 0.4);
+            color: white;
+        }
+
+    .la-btn-secondary {
+        background: #f1f5f9;
+        color: #64748b;
+    }
+
+        .la-btn-secondary:hover {
+            background: #e2e8f0;
+            color: var(--la-navy);
+        }
+
+    /* Input Icons */
+    .la-input-with-icon {
+        position: relative;
+    }
+
+        .la-input-with-icon .la-form-input {
+            padding-left: 2.75rem;
+        }
+
+    .la-input-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #64748b;
+        font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .la-form-container {
+            padding: 1.5rem;
+        }
+
+        .la-form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .la-form-actions {
+            flex-direction: column;
+        }
+
+        .la-btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }

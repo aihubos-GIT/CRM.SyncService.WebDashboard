@@ -1,40 +1,122 @@
 ﻿@model IEnumerable<CRM.SyncService.WebDashboard.Models.Contact>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Quản lý Contacts";
 }
+<link href="~/css/contact-index.css" rel="stylesheet" />
 
-<h3>Contacts</h3>
-<p>
-    <a class="btn btn-primary" href="/Contacts/Create">Create contact</a>
-</p>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Phone</th>
-            <th>Email</th>
-            <th>Status</th>
-            <th>Source</th>
-            <th></th>
-        </tr>
-    </thead>
+<div class="la-page-header">
+    <h1 class="la-page-title">
+        <i class="bi bi-people-fill"></i>
+        Quản lý Contacts
+    </h1>
+    <a class="la-btn-primary" href="/Contacts/Create">
+        <i class="bi bi-person-plus-fill"></i>
+        Tạo Contact Mới
+    </a>
+</div>
 
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.ContactName</td>
-                <td>@item.Phone</td>
-                <td>@item.Email</td>
-                <td>@item.Status</td>
-                <td>@item.Source</td>
-                <td>
-                    <a class="btn btn-sm btn-warning" href="/Contacts/Edit/@item.Id">Edit</a>
-                    <a class="btn btn-sm btn-danger" href="/Contacts/Delete/@item.Id">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="la-table-container">
+    <div class="la-table-toolbar">
+        <div class="la-search-box">
+            <i class="bi bi-search la-search-icon"></i>
+            <input type="text" class="la-search-input" id="searchInput" placeholder="Tìm kiếm theo tên, email, số điện thoại...">
+        </div>
+        <div class="la-table-info">
+            <strong>@Model.Count()</strong> contacts
+        </div>
+    </div>
+
+    @if (Model.Any())
+    {
+        <div style="overflow-x: auto;">
+            <table class="la-table" id="contactsTable">
+                <thead>
+                    <tr>
+                        <th>Tên</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Trạng thái</th>
+                        <th>Nguồn</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        var statusClass = item.Status?.ToLower() == "active" ? "la-status-active"
+                        : item.Status?.ToLower() == "inactive" ? "la-status-inactive"
+                        : "la-status-pending";
+
+                        <tr>
+                            <td>
+                                <strong style="color: var(--la-navy);">@item.ContactName</strong>
+                            </td>
+                            <td>
+                                <i class="bi bi-telephone me-1" style="color: #64748b;"></i>
+                                @item.Phone
+                            </td>
+                            <td>
+                                <i class="bi bi-envelope me-1" style="color: #64748b;"></i>
+                                @item.Email
+                            </td>
+                            <td>
+                                <span class="la-status-badge @statusClass">
+                                    @(string.IsNullOrEmpty(item.Status) ? "N/A" : item.Status)
+                                </span>
+                            </td>
+                            <td>
+                                <span class="la-source-badge">@(string.IsNullOrEmpty(item.Source) ? "N/A" : item.Source)</span>
+                            </td>
+                            <td>
+                                <div class="la-table-actions">
+                                    <a class="la-btn-sm la-btn-edit" href="/Contacts/Edit/@item.Id">
+                                        <i class="bi bi-pencil-fill"></i>
+                                        Sửa
+                                    </a>
+                                    <a class="la-btn-sm la-btn-delete" href="/Contacts/Delete/@item.Id" onclick="return confirm('Bạn có chắc muốn xóa contact này?')">
+                                        <i class="bi bi-trash-fill"></i>
+                                        Xóa
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="la-empty-state">
+            <div class="la-empty-icon">
+                <i class="bi bi-inbox"></i>
+            </div>
+            <h3 class="la-empty-title">Chưa có contact nào</h3>
+            <p class="la-empty-text">Bắt đầu bằng cách tạo contact đầu tiên của bạn</p>
+            <a class="la-btn-primary" href="/Contacts/Create">
+                <i class="bi bi-person-plus-fill"></i>
+                Tạo Contact Đầu Tiên
+            </a>
+        </div>
+    }
+</div>
+
+<script>
+    // Search functionality
+    const searchInput = document.getElementById('searchInput');
+    const table = document.getElementById('contactsTable');
+
+    if (searchInput && table) {
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            const rows = table.getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+
+            for (let row of rows) {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(searchTerm) ? '' : 'none';
+            }
+        });
+    }
+</script>
